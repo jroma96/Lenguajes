@@ -41,6 +41,7 @@ return	"return"[[:space:]]*(({entero}|{varID})[[:space:]]*)*";"
 varPredef("superglobals"|"$globals"|"$_server"|"$_get"|"$_post"|"$_files"|"$_request"|"$_session"|"$_env"|"$_cookie"|"$php_errormsg"|"$http_raw_post_data"|"$http_response_header"|"$argc"|"$argv")
 funciones	("function"[[:space:]]*)?{identificador}[[:space:]]*"("[[:space:]]*({varID}[[:space:]]*(","[[:space:]]*)?)*")"
 comentarios	(("//"|"#")[^\"\n]*)|("/*"[^\"]*"*/")
+BD	{varID}[[:space:]]*"["[[:space:]]*{cadena}?[[:space:]]*"]"
 %array
 %%
 
@@ -70,8 +71,9 @@ comentarios	(("//"|"#")[^\"\n]*)|("/*"[^\"]*"*/")
 [[:space:]]	/*69*/
 {funciones}	printf("funcion: %s\n", yytext);
 {comentarios}	printf("comentario: %s\n", yytext);
+{BD}		printf("Acceso a base de datos: %s\n", yytext);funcion2(yytext);
 .		printf("Token no reconocido: %s\n", yytext);funcion(yytext);
-<<EOF>>		Min(yytext);yyterminate();
+<<EOF>>		Min();yyterminate();
 %%
 #include <stdio.h>
 #include <ctype.h>
@@ -99,7 +101,7 @@ Min()
 	if(error <1)
 	{
 		int a;
-		FILE *salida = fopen("/home/dres/Downloads/prueba.out", "a");
+		FILE *salida = fopen("/home/dres/Downloads/prueba.out", "w+");
 		FILE *archivo = fopen("/home/dres/Downloads/prueba.txt", "r+");
 		do
    		{
@@ -114,4 +116,3 @@ Min()
 		fclose(archivo);
 	}
 }
-
