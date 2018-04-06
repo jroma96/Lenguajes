@@ -41,7 +41,7 @@ return	"return"[[:space:]]*(({entero}|{varID})[[:space:]]*)*";"
 varPredef("superglobals"|"$globals"|"$_server"|"$_get"|"$_post"|"$_files"|"$_request"|"$_session"|"$_env"|"$_cookie"|"$php_errormsg"|"$http_raw_post_data"|"$http_response_header"|"$argc"|"$argv")
 funciones	("function"[[:space:]]*)?{identificador}[[:space:]]*"("[[:space:]]*({varID}[[:space:]]*(","[[:space:]]*)?)*")"
 comentarios	(("//"|"#")[^\"\n]*)|("/*"[^\"]*"*/")
-BD	{varID}[[:space:]]*"["[[:space:]]*{cadena}?[[:space:]]*"]"
+BD	{varID}[[:space:]]*"["[[:space:]]*{identificador}?[[:space:]]*"]"
 %array
 %%
 
